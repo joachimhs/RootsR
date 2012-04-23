@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+	<title>Ember.js Example Application</title>
+	<link rel="stylesheet" href="/css/master.css" type="text/css" charset="utf-8">
+	<meta name="author" content="Joachim Haagen Skeie">
+    <script src="/scripts/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/jquery.transit.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/ember-0.9.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/ember-data-latest.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/ember-touch.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/ember-routes.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/app/app.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/app/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/app/fixtureData.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/app/stateManager.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/x-handlebars" data-template-name="photo-view-list">
+        {{#each content}}
+            {{#view RootsR.ThumbnailPhotoView contentBinding="this" classNames="thumbnailItem"}}
+                <img {{bindAttr src="content.imageUrl"}} style="width: 100%; height: 100%;" ontouchmove="touchMove(event);"/>
+            {{/view}}
+        {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="selected-photo">
+        {{#with content}}
+            <h1>{{imageTitle}}</h1>
+            {{#view RootsR.SelectedPhotoView contentBinding="this" classNames="selectedPhotoItem"}}
+                <img id="selectedImage" {{bindAttr src="content.imageUrl"}}/ ontouchmove="touchMove(event);">
+            {{/view}}
+        {{/with}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="control-button-view">
+        {{#view Ember.Button target="RootsR.PhotoListController" action="startSlideshow"}}Play{{/view}}
+        {{#view Ember.Button target="RootsR.PhotoListController" action="stopSlideshow"}}Stop{{/view}}
+        {{#view Ember.Button target="RootsR.PhotoListController" action="prevPhoto"}}Prev{{/view}}
+        {{#view Ember.Button target="RootsR.PhotoListController" action="nextPhoto"}}Next{{/view}}
+    </script>
+
+    <script type="text/javascript">
+        touchMove = function(event) {
+            event.preventDefault();
+            return false;
+        }
+    </script>
+</head>
+<body bgcolor="#555154">
+    <div id="mainArea">
+        <!--div>Disclamer: The photographs used for this example application is under Copyright to Joachim Haagen Skeie. You are allowed to use the photographs while going through this example application. The source code itself is released under the MIT licence.</div-->
+        <img src="/img/rootsr_logo_small.png" alt="RootsR"/>
+    </div>
+
+</body>
+</html>
