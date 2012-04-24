@@ -26,7 +26,7 @@ RootsR.PhotoListController = Em.ArrayProxy.create({
 
     nextPhoto: function() {
         if (!this.get('selected')) {
-            this.set('selected', this.get('content').get('firstObject'));
+            SC.routes.set("location", "photo/0");
         } else {
             var selectedIndex = this.findSelectedItemIndex();
 
@@ -35,15 +35,13 @@ RootsR.PhotoListController = Em.ArrayProxy.create({
             } else {
                 selectedIndex++;
             }
-
             SC.routes.set("location", "photo/" + selectedIndex);
-            //this.set('selected', this.get('content').objectAt(selectedIndex));
         }
     },
 
     prevPhoto: function() {
         if (!this.get('selected')) {
-            this.set('selected', this.get('content').get('lastObject'));
+            SC.routes.set("location", "photo/0");
         } else {
             var selectedIndex = this.findSelectedItemIndex();
 
@@ -52,11 +50,8 @@ RootsR.PhotoListController = Em.ArrayProxy.create({
             } else {
                 selectedIndex--;
             }
-
             SC.routes.set("location", "photo/" + selectedIndex);
-            //this.set('selected', this.get('content').objectAt(selectedIndex));
         }
-
     },
 
     findSelectedItemIndex: function() {
@@ -87,7 +82,6 @@ RootsR.SelectedPhotoController = Em.Object.create({
 
 RootsR.ThumbnailPhotoView = Em.View.extend({
     click: function(evt) {
-        //RootsR.PhotoListController.set('selected', this.get('content'));
         SC.routes.set("location", "photo/" + (this.get('content').get('id')-1));
     },
 
@@ -107,30 +101,6 @@ RootsR.ThumbnailPhotoView = Em.View.extend({
             x: '%@=%@'.fmt((val.x < 0) ? '-' : '+', Math.abs(val.x)),
             y: '%@=%@'.fmt((val.y < 0) ? '-' : '+', Math.abs(val.y))
         });
-    },
-
-    swipeOptions: {
-        direction: Em.OneGestureDirection.Up | Em.OneGestureDirection.Down,
-        cancelPeriod: 100,
-        numberOfRequiredTouches: 2
-    },
-
-    swipeChange: function(recognizer) {
-        var val = recognizer.get('translation');
-
-        this.$("thumbnailViewList").css({
-            zIndex: 20,
-            x: '%@=%@'.fmt((val.x < 0) ? '-' : '+', Math.abs(val.x)),
-            y: '%@=%@'.fmt((val.y < 0) ? '-' : '+', Math.abs(val.y))
-        });
-    },
-
-    swipeEnd: function(recognizer) {
-        if (recognizer.swipeDirection === Em.OneGestureDirection.Left) {
-            RootsR.PhotoListController.nextPhoto();
-        } else if (recognizer.swipeDirection === Em.OneGestureDirection.Right) {
-            RootsR.PhotoListController.prevPhoto();
-        }
     },
 
     classNameBindings: "isSelected",

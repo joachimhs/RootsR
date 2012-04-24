@@ -37,27 +37,12 @@ setTimeout(function() {
 
 setTimeout(function() {
     RootsR.routes = Em.Object.create({
-        currentRoute: null,
-
         gotoRoute: function(routeParams) {
-            console.log('RootsR.routes gotoRoute. type: ' + routeParams.type + " id: " + routeParams.id);
             if(routeParams.type === 'photo' && routeParams.id) {
                 RootsR.PhotoListController.selectPhotoWithId(routeParams.id);
                 document.title = 'RootsR - ' + routeParams.id;
-                //RootsR.stateManager.goToState('showPostView');
-            } /*else if(routeParams.type === 'page' && routeParams.id) {
-                RootsR.HeaderLinksController.selectLinkWithId(routeParams.id);
-                ember_disqus_identifier = '/page/' + routeParams.id ;
-                document.title = 'Haagen.name - ' + routeParams.id;
-                ember_disqus_title = routeParams.id;
-                RootsR.stateManager.goToState('showPageView');
-            } else if (routeParams.type === 'main') {
-                RootsR.stateManager.goToState('showMainView');
-                ember_disqus_identifier = '/main';
-                ember_disqus_title = 'Haagen.name';
-                document.title = 'Haagen.name - Home';
-                RootsR.PostListController.set('selectedPost', null);
-            }*/
+                RootsR.stateManager.goToState('showPhotoView');
+            }
         }
     });
 

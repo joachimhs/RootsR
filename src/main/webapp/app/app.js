@@ -20,5 +20,3 @@ RootsR.Adapter = DS.Adapter.create({
 RootsR.store = DS.Store.create({
     adapter: RootsR.Adapter
 });
-
-
